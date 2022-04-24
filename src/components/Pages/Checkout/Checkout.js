@@ -10,7 +10,7 @@ const Checkout = () => {
     const [service] = useServiceDetail(serviceId);
     const [user] = useAuthState(auth);
 
-    
+
     /* const [user, setUser]= useState({
         name: 'Akbar The Great',
         email:'akbar@gmail.com',
@@ -35,16 +35,16 @@ const Checkout = () => {
                 <Form className='text-start p-4 mt-4 w-75 mx-auto'>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Your Name</Form.Label>
-                        <Form.Control className='py-2' type="text" name='name' value={user.name} placeholder="Enter your name" required />
+                        <Form.Control className='py-2' type="text" name='name' value={user.displayName} placeholder="Enter your name" required readOnly disabled/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control className='py-2' type="email" name='email' value={user.email} placeholder="Enter your email address" required />
+                        <Form.Label>Email Address</Form.Label>
+                        <Form.Control className='py-2' type="email" name='email' value={user.email} placeholder="Enter your email address" required readOnly disabled/>
                      </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Service</Form.Label>
-                        <Form.Control className='py-2' type="text" name='service' value={service.name} placeholder="service" required />
+                        <Form.Control className='py-2' type="text" name='service' value={service.name} placeholder="service" required readOnly disabled/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
