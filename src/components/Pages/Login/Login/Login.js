@@ -6,9 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import { ToastContainer, toast } from 'react-toastify';
-
-import 'react-toastify/dist/ReactToastify.css';
+import {toast } from 'react-toastify';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
@@ -84,7 +82,6 @@ const Login = () => {
                 <p>New to Genius Car? <span className='text-primary' onClick={navigateRegister} style={{ cursor: 'pointer' }}>Please Register Now</span></p>
                 <p>Forgot Password? <span className='text-primary' onClick={resetPassword} style={{ cursor: 'pointer' }}>Reset</span></p>
                 <SocialLogin />
-                <ToastContainer />
             </div>
         </div>
     );

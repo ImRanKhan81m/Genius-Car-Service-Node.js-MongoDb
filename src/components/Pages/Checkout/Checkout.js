@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button, Container, Form, ToastContainer } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useServiceDetail from '../../../hooks/useServiceDetail';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Checkout = () => {
     const { serviceId } = useParams();
@@ -36,6 +38,13 @@ const Checkout = () => {
             address: event.target.address.value,
             phone: event.target.phone.value
         }
+        axios.post('http://localhost:5000/order', order)
+        .then(response =>{
+            const {data} = response;
+            if(data.insertedId){
+                toast('Your order is booked !!!')
+            }
+        })
     }
 
 
@@ -60,7 +69,7 @@ const Checkout = () => {
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control className='py-2' type="number" name='email' placeholder="Enter your phone number" required autoComplete='off'/>
+                        <Form.Control className='py-2' type="number" name='phone' placeholder="Enter your phone number" required autoComplete='off'/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -72,6 +81,7 @@ const Checkout = () => {
                         Confirm Booking
                     </Button>
                 </Form>
+                <ToastContainer/>
             </Container>
         </div>
     );
