@@ -27,12 +27,23 @@ const Checkout = () => {
         setUser(newUser)
     } */
 
+    const handlePlaceOrder = event =>{
+        event.preventDefault();
+        const order = {
+            email: user.email,
+            service: service.name,
+            serviceId: serviceId,
+            address: event.target.address.value,
+            phone: event.target.phone.value
+        }
+    }
+
 
     return (
         <div /* style={{ height: '81vh' }} */>
             <h1 className='mt-4'>Please Order: {service.name}</h1>
             <Container>
-                <Form className='text-start p-4 mt-4 w-75 mx-auto'>
+                <Form onSubmit={handlePlaceOrder} className='text-start p-4 mt-4 w-75 mx-auto'>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Your Name</Form.Label>
                         <Form.Control className='py-2' type="text" name='name' value={user.displayName} placeholder="Enter your name" required readOnly disabled/>
@@ -49,12 +60,12 @@ const Checkout = () => {
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control className='py-2' type="number" name='email' placeholder="Enter your phone number" required />
+                        <Form.Control className='py-2' type="number" name='email' placeholder="Enter your phone number" required autoComplete='off'/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Address</Form.Label>
-                        <Form.Control className='py-2' type="text" name='password' placeholder="Enter your Address" />
+                        <Form.Control className='py-2' type="text" name='address' placeholder="Enter your Address" autoComplete='off' />
                     </Form.Group>
                     <Button
                         style={{ fontSize: '18px' }} className='w-100 py-2' variant="primary" type="submit">
