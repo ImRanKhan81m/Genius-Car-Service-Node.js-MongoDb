@@ -32,17 +32,20 @@ const Checkout = () => {
     const handlePlaceOrder = event =>{
         event.preventDefault();
         const order = {
+            name: user.displayName,
             email: user.email,
             service: service.name,
             serviceId: serviceId,
-            address: event.target.address.value,
-            phone: event.target.phone.value
+            phone: event.target.phone.value,
+            address: event.target.address.value
+            
         }
         axios.post('http://localhost:5000/order', order)
         .then(response =>{
             const {data} = response;
             if(data.insertedId){
-                toast('Your order is booked !!!')
+                toast('Your order is booked !!!');
+                event.target.reset();
             }
         })
     }
@@ -55,12 +58,12 @@ const Checkout = () => {
                 <Form onSubmit={handlePlaceOrder} className='text-start p-4 mt-4 w-75 mx-auto'>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Your Name</Form.Label>
-                        <Form.Control className='py-2' type="text" name='name' value={user.displayName} placeholder="Enter your name" required readOnly disabled/>
+                        <Form.Control className='py-2' type="text" name='name' value={user?.displayName} placeholder="Enter your name" required readOnly disabled/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control className='py-2' type="email" name='email' value={user.email} placeholder="Enter your email address" required readOnly disabled/>
+                        <Form.Control className='py-2' type="email" name='email' value={user?.email} placeholder="Enter your email address" required readOnly disabled/>
                      </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Service</Form.Label>
