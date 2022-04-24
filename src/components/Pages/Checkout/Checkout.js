@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useServiceDetail from '../../../hooks/useServiceDetail';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 const Checkout = () => {
     const { serviceId } = useParams();
     const [service] = useServiceDetail(serviceId);
+    const [user] = useAuthState(auth);
 
-    const [user, setUser]= useState({
+    
+    /* const [user, setUser]= useState({
         name: 'Akbar The Great',
         email:'akbar@gmail.com',
         address: 'Tajmohol Road MD Sultanpur',
@@ -21,7 +25,7 @@ const Checkout = () => {
         const newAddress = event.target.value;
         const newUser = {address: newAddress, ...rest};
         setUser(newUser)
-    }
+    } */
 
 
     return (
@@ -45,12 +49,12 @@ const Checkout = () => {
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control className='py-2' type="number" name='email' value={user.phone} placeholder="Enter your phone number" required />
+                        <Form.Control className='py-2' type="number" name='email' placeholder="Enter your phone number" required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Address</Form.Label>
-                        <Form.Control className='py-2' type="text" name='password' value={user.address} onChange={handleAddressChange} placeholder="Enter your Address" />
+                        <Form.Control className='py-2' type="text" name='password' placeholder="Enter your Address" />
                     </Form.Group>
                     <Button
                         style={{ fontSize: '18px' }} className='w-100 py-2' variant="primary" type="submit">
