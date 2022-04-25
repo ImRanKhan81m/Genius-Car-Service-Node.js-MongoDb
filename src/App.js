@@ -15,6 +15,7 @@ import NotFound from './components/Pages/NotFound/NotFound';
 import ServiceDetail from './components/Pages/ServiceDetail/ServiceDetail';
 import Footer from './components/Pages/Shared/Footer/Footer';
 import Header from './components/Pages/Shared/Header/Header';
+import Order from './components/Pages/Order/Order';
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
         <Route path='/manage' element={
           <RequireAuth>
             <ManageServices />
+          </RequireAuth>
+        } />
+        <Route path='/orders' element={
+          <RequireAuth>
+            <Order />
           </RequireAuth>
         } />
         <Route path='/*' element={<NotFound />} />
