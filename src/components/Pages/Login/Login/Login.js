@@ -1,4 +1,4 @@
-import { async } from '@firebase/util';
+
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,7 +8,7 @@ import Loading from '../../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { toast } from 'react-toastify';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
-import axios from 'axios';
+import useToken from '../../../../hooks/useToken';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -26,15 +26,17 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
+    const [token] = useToken(user)
+
     const handleSubmit = async event => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
         await signInWithEmailAndPassword(email, password);
-        const { data } = await axios.post('https://intense-mountain-66427.herokuapp.com/login', { email });
+        /* const { data } = await axios.post('https://intense-mountain-66427.herokuapp.com/login', { email });
         localStorage.setItem('accessToken', data.accessToken);
-        navigate(from, { replace: true })
+        navigate(from, { replace: true }) */
     }
 
     const navigateRegister = event => {
@@ -49,11 +51,13 @@ const Login = () => {
             toast('Please enter your email address.')
         }
     }
-    if (loading || sending) {
+
+
+    if (loading || sending ) {
         return <Loading />
     }
-    if (user) {
-        // navigate(from, { replace: true })
+    if (token) {
+        navigate(from, { replace: true })
     }
     if (error) {
         errorElement = <p className='text-danger'>Error: {error.message}</p>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../../firebase.init'
 import './Register.css'
 import SocialLogin from '../SocialLogin/SocialLogin';
 import Loading from '../../Shared/Loading/Loading';
+import useToken from '../../../../hooks/useToken';
 
 const Register = () => {
     const [agree, setAgree] = useState(false);
@@ -13,10 +14,12 @@ const Register = () => {
         createUserWithEmailAndPassword,
         user,
         loading,
-        error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [updateProfile, updating] = useUpdateProfile(auth);
     const navigate = useNavigate();
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
+    const [token] = useToken(user);
 
 
     const handleSubmit = async (event) => {
@@ -29,7 +32,7 @@ const Register = () => {
         await createUserWithEmailAndPassword(email, password);
         await updateProfile({ displayName: name});
         console.log('Updated profile');
-        navigate('/')
+        // navigate('/')
     }
     const navigateLogin = event => {
         navigate('/login')
@@ -37,8 +40,8 @@ const Register = () => {
     if(loading || updating){
         return <Loading/>
     }
-    if (user) {
-        console.log('user' , user);
+    if (token) {
+        navigate(from, { replace: true })
     }
 
     return (
