@@ -5,18 +5,18 @@ const AddService = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         console.log(data);
-        const url = `http://localhost:5000/service`;
+        const url = `https://intense-mountain-66427.herokuapp.com/service`;
         fetch(url, {
             method: "POST",
-            headers:{
-                'content-type':'application/json'
+            headers: {
+                'content-type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-        .then(res => res.json())
-        .then(result =>{
-            console.log(result);
-        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+            })
     };
     return (
         <div className='container w-50' style={{ height: '81vh' }}>

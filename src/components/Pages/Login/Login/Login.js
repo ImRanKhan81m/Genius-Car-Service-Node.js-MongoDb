@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
 import axios from 'axios';
 
@@ -32,7 +32,7 @@ const Login = () => {
         const password = passwordRef.current.value;
 
         await signInWithEmailAndPassword(email, password);
-        const {data} = await axios.post('http://localhost:5000/login',{email});
+        const { data } = await axios.post('https://intense-mountain-66427.herokuapp.com/login', { email });
         localStorage.setItem('accessToken', data.accessToken);
         navigate(from, { replace: true })
     }
@@ -45,7 +45,7 @@ const Login = () => {
         if (email) {
             await sendPasswordResetEmail(email);
             toast('Sent email');
-        }else{
+        } else {
             toast('Please enter your email address.')
         }
     }
@@ -62,7 +62,7 @@ const Login = () => {
 
     return (
         <div className='container py-4 mb-5'>
-            <PageTitle title="Login"/>
+            <PageTitle title="Login" />
             <h2>Please Login</h2>
             <div className='w-50 m-auto border mt-4'>
                 <Form onSubmit={handleSubmit} className='text-start p-4 mt-4'>

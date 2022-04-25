@@ -29,7 +29,7 @@ const Checkout = () => {
         setUser(newUser)
     } */
 
-    const handlePlaceOrder = event =>{
+    const handlePlaceOrder = event => {
         event.preventDefault();
         const order = {
             name: user.displayName,
@@ -38,16 +38,16 @@ const Checkout = () => {
             serviceId: serviceId,
             phone: event.target.phone.value,
             address: event.target.address.value
-            
+
         }
-        axios.post('http://localhost:5000/order', order)
-        .then(response =>{
-            const {data} = response;
-            if(data.insertedId){
-                toast('Your order is booked !!!');
-                event.target.reset();
-            }
-        })
+        axios.post('https://intense-mountain-66427.herokuapp.com/order', order)
+            .then(response => {
+                const { data } = response;
+                if (data.insertedId) {
+                    toast('Your order is booked !!!');
+                    event.target.reset();
+                }
+            })
     }
 
 
@@ -58,21 +58,21 @@ const Checkout = () => {
                 <Form onSubmit={handlePlaceOrder} className='text-start p-4 mt-4 w-75 mx-auto'>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Your Name</Form.Label>
-                        <Form.Control className='py-2' type="text" name='name' value={user?.displayName} placeholder="Enter your name" required readOnly disabled/>
+                        <Form.Control className='py-2' type="text" name='name' value={user?.displayName} placeholder="Enter your name" required readOnly disabled />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control className='py-2' type="email" name='email' value={user?.email} placeholder="Enter your email address" required readOnly disabled/>
-                     </Form.Group>
+                        <Form.Control className='py-2' type="email" name='email' value={user?.email} placeholder="Enter your email address" required readOnly disabled />
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Service</Form.Label>
-                        <Form.Control className='py-2' type="text" name='service' value={service.name} placeholder="service" required readOnly disabled/>
+                        <Form.Control className='py-2' type="text" name='service' value={service.name} placeholder="service" required readOnly disabled />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control className='py-2' type="number" name='phone' placeholder="Enter your phone number" required autoComplete='off'/>
+                        <Form.Control className='py-2' type="number" name='phone' placeholder="Enter your phone number" required autoComplete='off' />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -84,7 +84,7 @@ const Checkout = () => {
                         Confirm Booking
                     </Button>
                 </Form>
-                <ToastContainer/>
+                <ToastContainer />
             </Container>
         </div>
     );
