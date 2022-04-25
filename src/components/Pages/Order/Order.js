@@ -33,6 +33,11 @@ const Order = () => {
     return (
         <div style={{height:'81vh'}}>
             <h2 className='mt-5'>Your Orders: {orders.length}</h2>
+            {
+                orders.map(order => <div key={order._id}>
+                    <p>{order.service}</p>
+                </div>)
+            }
         </div>
     );
 };
